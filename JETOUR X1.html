@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/orgil.e/Downloads/jetour_x1_25.html -->
+<html lang="mn" style="--scale: 0.47760416666666666;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JETOUR X1</title>
+<link href="./JETOUR X1_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #888;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+  }
+
+  .phone {
+    width: 1080px;
+    height: 1920px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    transform-origin: top left;
+    transform: scale(var(--scale, 0.4));
+    position: absolute;
+    left: 50%;
+    margin-left: calc(-540px * var(--scale, 0.4));
+    isolation: isolate;
+  }
+
+  .page {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: none;
+    flex-direction: column;
+  }
+  .page.active { display: flex; }
+
+  #page-nuur { background: url('https://i.imgur.com/3qvEfcT.jpeg') center/cover no-repeat; }
+  #page-kuzov { background: #ffffff; }
+  #page-detail { background: #ffffff; }
+  #page-white-detail { background: #ffffff; }
+  #page-grey-detail { background: #ffffff; }
+  #page-red-detail { background: #ffffff; }
+  #page-salon { background: #ffffff; }
+  #page-har-salon { background: #ffffff; }
+  #page-tsagaan-salon { background: #ffffff; }
+  #page-uzuulelt { background: #ffffff; }
+
+  /* ҮЗҮҮЛЭЛТ CONTENT */
+  .uzuulelt-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .uzuulelt-card {
+    flex: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #1a1a1a;
+  }
+  .uzuulelt-card img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* SALON CONTENT */
+  .salon-content {
+    flex: 1;
+    padding: 40px 40px 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    align-content: start;
+    overflow-y: auto;
+  }
+  .salon-card {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 3/2;
+    position: relative;
+    cursor: pointer;
+  }
+  .salon-img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .salon-img img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* HEADER */
+  .header {
+    background: #111111;
+    height: 116px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 40px 40px 0;
+    border-radius: 20px;
+  }
+  .header h1 { color: #fff; font-size: 50px; font-weight: 700; letter-spacing: 0.5px; }
+
+  .header-back {
+    background: #111111;
+    height: 116px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    margin: 40px 40px 0;
+    border-radius: 20px;
+    padding: 0 30px;
+  }
+  .header-back h1 { color: #fff; font-size: 50px; font-weight: 700; }
+  .back-btn { cursor: pointer; display: flex; align-items: center; }
+
+  /* FOOTER */
+  .footer {
+    background: #000;
+    border-top: 1px solid #2a2a2a;
+    display: flex;
+    flex-shrink: 0;
+    height: 108px;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 500;
+    color: #555;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+  .nav-item + .nav-item { border-left: 1px solid #2a2a2a; }
+  .nav-item.active { color: #fff; background: #2a2a2a; }
+
+  /* НҮҮР CARDS */
+  .nuur-content {
+    flex: 1;
+    padding: 40px 40px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+  }
+  .nuur-card { border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; aspect-ratio: 5/4.5; }
+  .nuur-card-img { flex: 1; position: relative; border-radius: 20px; overflow: hidden; }
+  .nuur-card-img img { position: absolute; top:0;left:0;width:100%;height:100%;object-fit:cover; }
+  .nuur-card-body { padding: 16px 8px 10px; text-align: center; }
+  .nuur-label { font-size:28px; font-weight:300; color:#111; margin-bottom:4px; }
+  .nuur-value { font-size:44px; font-weight:700; color:#111; letter-spacing:-0.5px; }
+
+  /* КУЗОВ CARDS */
+  .kuzov-content {
+    flex: 1;
+    padding: 40px 40px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+    overflow-y: auto;
+  }
+  .kuzov-card {
+    border-radius: 20px; overflow: hidden;
+    aspect-ratio: 3/4; position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .kuzov-card img { position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover; }
+
+  /* DETAIL CARDS */
+  .detail-content {
+    flex: 1;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+  }
+  .detail-content-scroll {
+    flex: 1;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    overflow-y: auto;
+  }
+  .detail-card {
+    overflow: hidden; position: relative;
+    cursor: pointer;
+    background: #f0f0f0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .detail-card img { position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;pointer-events:none; }
+
+  /* LIGHTBOX */
+  .lightbox-overlay {
+    display: none;
+    position: absolute;
+    top:0;left:0;width:100%;height:100%;
+    background: rgba(0,0,0,0.92);
+    z-index: 100;
+    overflow: hidden;
+  }
+  .lb-track { display:flex; height:100%; align-items:center; will-change:transform; }
+  .lb-dots { position:absolute;bottom:80px;left:0;right:0;display:flex;justify-content:center;gap:20px;pointer-events:none; }
+</style>
+</head>
+<body style="height: 917px;">
+<div class="phone">
+
+  <!-- ══ НҮҮР ══ -->
+  <div id="page-nuur" class="page active">
+    <div class="header"><h1>JETOUR X1</h1></div>
+    <div class="nuur-content">
+      <div class="nuur-card">
+        <div class="nuur-card-img"><img src="./JETOUR X1_files/zUGPLZK.png"></div>
+        <div class="nuur-card-body"><div class="nuur-label">Газраас тэнхлэг хүртэл зай</div><div class="nuur-value">190мм</div></div>
+      </div>
+      <div class="nuur-card">
+        <div class="nuur-card-img"><img src="./JETOUR X1_files/erIjHKU.png"></div>
+        <div class="nuur-card-body"><div class="nuur-label">Ухаалаг, мультимедиа дэлгэц</div><div class="nuur-value">15.6"</div></div>
+      </div>
+      <div class="nuur-card">
+        <div class="nuur-card-img"><img src="./JETOUR X1_files/Mv0pvvu.png"></div>
+        <div class="nuur-card-body"><div class="nuur-label">Тэнхлэг хоорондын зай</div><div class="nuur-value">2720мм</div></div>
+      </div>
+      <div class="nuur-card">
+        <div class="nuur-card-img"><img src="./JETOUR X1_files/dfCcPNk.png"></div>
+        <div class="nuur-card-body"><div class="nuur-label">Тээшний баглаамж</div><div class="nuur-value">486л</div></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="nav-item active" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+  </div>
+
+  <!-- ══ КУЗОВ ══ -->
+  <div id="page-kuzov" class="page">
+    <div class="header"><h1>Өнгөний сонголт</h1></div>
+    <div class="kuzov-content">
+      <div class="kuzov-card" onclick="showPage(&#39;detail&#39;)"><img src="./JETOUR X1_files/y4gg6dE.jpeg"></div>
+      <div class="kuzov-card" onclick="showPage(&#39;white-detail&#39;)"><img src="./JETOUR X1_files/mtsADVO.jpeg"></div>
+      <div class="kuzov-card" onclick="showPage(&#39;grey-detail&#39;)"><img src="./JETOUR X1_files/lrRoq43.jpeg"></div>
+      <div class="kuzov-card" onclick="showPage(&#39;red-detail&#39;)"><img src="./JETOUR X1_files/j9IixRR.jpeg"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item active" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+  </div>
+
+  <!-- ══ CAR DETAIL (Хар) ══ -->
+  <div id="page-detail" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;kuzov&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Хар өнгө</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content">
+      <div class="detail-card" style="border-radius:20px 0 0 0;">
+        <img src="./JETOUR X1_files/6KqU7dG.png">
+        <div style="position:absolute;top:70px;left:0;right:0;background:#000;padding:18px 0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:40px;color:#fff;letter-spacing:2px;text-transform:uppercase;">Night Black</span>
+        </div>
+      </div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;black&#39;,0)"><img src="./JETOUR X1_files/kYMAOMn.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;black&#39;,1)"><img src="./JETOUR X1_files/fTqYWdT.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;black&#39;,2)"><img src="./JETOUR X1_files/IqpcZkH.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;black&#39;,3)"><img src="./JETOUR X1_files/Jgf89gb.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;black&#39;,4)"><img src="./JETOUR X1_files/Zii0R37.jpeg"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item active" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-black" class="lightbox-overlay" onclick="handleLbClick(&#39;black&#39;,event)" style="display: none;">
+      <div id="lb-track-black" class="lb-track" style="width: 500%; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(0%);"><div style="width: 20%; height: 100%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="./JETOUR X1_files/kYMAOMn.jpeg" style="max-width: 90%; max-height: 80%; border-radius: 20px; object-fit: contain; pointer-events: none; transition: transform 0.2s; transform-origin: center center;"></div><div style="width: 20%; height: 100%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="./JETOUR X1_files/fTqYWdT.jpeg" style="max-width: 90%; max-height: 80%; border-radius: 20px; object-fit: contain; pointer-events: none; transition: transform 0.2s; transform-origin: center center;"></div><div style="width: 20%; height: 100%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="./JETOUR X1_files/IqpcZkH.jpeg" style="max-width: 90%; max-height: 80%; border-radius: 20px; object-fit: contain; pointer-events: none; transition: transform 0.2s; transform-origin: center center;"></div><div style="width: 20%; height: 100%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="./JETOUR X1_files/Jgf89gb.jpeg" style="max-width: 90%; max-height: 80%; border-radius: 20px; object-fit: contain; pointer-events: none; transition: transform 0.2s; transform-origin: center center;"></div><div style="width: 20%; height: 100%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><img src="./JETOUR X1_files/Zii0R37.jpeg" style="max-width: 90%; max-height: 80%; border-radius: 20px; object-fit: contain; pointer-events: none; transition: transform 0.2s; transform-origin: center center;"></div></div>
+      <div id="lb-dots-black" class="lb-dots"><div style="width: 16px; height: 16px; border-radius: 50%; background: rgb(255, 255, 255); transition: background 0.2s;"></div><div style="width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); transition: background 0.2s;"></div><div style="width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); transition: background 0.2s;"></div><div style="width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); transition: background 0.2s;"></div><div style="width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); transition: background 0.2s;"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ CAR DETAIL (Цагаан) ══ -->
+  <div id="page-white-detail" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;kuzov&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Цагаан өнгө</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content">
+      <div class="detail-card" style="border-radius:20px 0 0 0;">
+        <img src="./JETOUR X1_files/FmVhilo.png">
+        <div style="position:absolute;top:70px;left:0;right:0;background:#000;padding:18px 0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:40px;color:#fff;letter-spacing:2px;text-transform:uppercase;">Light White</span>
+        </div>
+      </div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;white&#39;,0)"><img src="./JETOUR X1_files/vykhUxJ.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;white&#39;,1)"><img src="./JETOUR X1_files/9g2fGGl.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;white&#39;,2)"><img src="./JETOUR X1_files/FMBazfc.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;white&#39;,3)"><img src="./JETOUR X1_files/t2ftGLv.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;white&#39;,4)"><img src="./JETOUR X1_files/Ab8PcBP.jpeg"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item active" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-white" class="lightbox-overlay" onclick="handleLbClick(&#39;white&#39;,event)">
+      <div id="lb-track-white" class="lb-track"></div>
+      <div id="lb-dots-white" class="lb-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ CAR DETAIL (Саарал) ══ -->
+  <div id="page-grey-detail" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;kuzov&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Саарал өнгө</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content">
+      <div class="detail-card" style="border-radius:20px 0 0 0; background:#8a8a8a;">
+        <img src="./JETOUR X1_files/ZL3VpvL.png">
+        <div style="position:absolute;top:70px;left:0;right:0;background:#000;padding:18px 0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:30px;color:#fff;letter-spacing:2px;text-transform:uppercase;">Technology Gray</span>
+        </div>
+      </div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;grey&#39;,0)"><img src="./JETOUR X1_files/yjptbee.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;grey&#39;,1)"><img src="./JETOUR X1_files/qao6zOg.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;grey&#39;,2)"><img src="./JETOUR X1_files/sMIzxPm.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;grey&#39;,3)"><img src="./JETOUR X1_files/92u1OAP.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;grey&#39;,4)"><img src="./JETOUR X1_files/zgS9eyc.jpeg"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item active" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-grey" class="lightbox-overlay" onclick="handleLbClick(&#39;grey&#39;,event)">
+      <div id="lb-track-grey" class="lb-track"></div>
+      <div id="lb-dots-grey" class="lb-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ CAR DETAIL (Улаан) ══ -->
+  <div id="page-red-detail" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;kuzov&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Улаан өнгө</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content">
+      <div class="detail-card" style="border-radius:20px 0 0 0; background:#8a1a1a;">
+        <img src="./JETOUR X1_files/zp8yym9.png">
+        <div style="position:absolute;top:70px;left:0;right:0;background:#000;padding:18px 0;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:36px;color:#fff;letter-spacing:2px;text-transform:uppercase;">RED</span>
+        </div>
+      </div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;red&#39;,0)"><img src="./JETOUR X1_files/sfuHkRk.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;red&#39;,1)"><img src="./JETOUR X1_files/QC4VizL.jpeg"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;red&#39;,2)"><img src="./JETOUR X1_files/jeCkBPW.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;red&#39;,3)"><img src="./JETOUR X1_files/8JBsKRa.jpeg"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;red&#39;,4)"><img src="./JETOUR X1_files/4xkVdaI.jpeg"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item active" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-red" class="lightbox-overlay" onclick="handleLbClick(&#39;red&#39;,event)">
+      <div id="lb-track-red" class="lb-track"></div>
+      <div id="lb-dots-red" class="lb-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ САЛОН ══ -->
+  <div id="page-salon" class="page">
+    <div class="header"><h1>Салон</h1></div>
+    <div class="salon-content">
+      <div class="salon-card" onclick="showPage(&#39;har-salon&#39;)">
+        <div class="salon-img" style="background:#1a1a1a;">
+          <img src="./JETOUR X1_files/kRdBTEJ.jpeg">
+          <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:36px;color:#fff;letter-spacing:2px;">ХАР</span>
+          </div>
+        </div>
+      </div>
+      <div class="salon-card" onclick="showPage(&#39;tsagaan-salon&#39;)">
+        <div class="salon-img" style="background:#f0f0f0;">
+          <img src="./JETOUR X1_files/QbEJ3oS.jpeg">
+          <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:&#39;Montserrat&#39;,sans-serif;font-weight:300;font-size:36px;color:#fff;letter-spacing:2px;">ЦАГААН</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item active" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+  </div>
+
+  <!-- ══ ХАР САЛОН DETAIL ══ -->
+  <div id="page-har-salon" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;salon&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Хар салон</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content" style="grid-template-rows:repeat(5,1fr);">
+      <div class="detail-card" style="border-radius:20px 0 0 0;" onclick="openLightbox(&#39;har-salon&#39;,0)"><img src="./JETOUR X1_files/vrw12lh.png"></div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;har-salon&#39;,1)"><img src="./JETOUR X1_files/HhmYs92.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,2)"><img src="./JETOUR X1_files/tDOHAJ5.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,3)"><img src="./JETOUR X1_files/mvXt8WV.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,4)"><img src="./JETOUR X1_files/3OP4P11.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,5)"><img src="./JETOUR X1_files/6M9mRJ7.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,6)"><img src="./JETOUR X1_files/MOpDacY.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;har-salon&#39;,7)"><img src="./JETOUR X1_files/UsmsFuD.png"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;har-salon&#39;,8)"><img src="./JETOUR X1_files/DvlaJBk.png"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;har-salon&#39;,9)"><img src="./JETOUR X1_files/xMZ7qoc.png"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item active" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-har-salon" class="lightbox-overlay" onclick="handleLbClick(&#39;har-salon&#39;,event)">
+      <div id="lb-track-har-salon" class="lb-track"></div>
+      <div id="lb-dots-har-salon" class="lb-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ ЦАГААН САЛОН DETAIL ══ -->
+  <div id="page-tsagaan-salon" class="page">
+    <div class="header-back">
+      <div class="back-btn" onclick="showPage(&#39;salon&#39;)">
+        <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+          <path d="M50 35 L20 35" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          <path d="M34 18 L17 35 L34 52" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1>Цагаан салон</h1>
+      <div style="width:70px"></div>
+    </div>
+    <div class="detail-content" style="grid-template-rows:repeat(5,1fr);">
+      <div class="detail-card" style="border-radius:20px 0 0 0;" onclick="openLightbox(&#39;tsagaan-salon&#39;,0)"><img src="./JETOUR X1_files/OInI488.png"></div>
+      <div class="detail-card" style="border-radius:0 20px 0 0;" onclick="openLightbox(&#39;tsagaan-salon&#39;,1)"><img src="./JETOUR X1_files/1kXsCSr.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,2)"><img src="./JETOUR X1_files/C2lFT6u.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,3)"><img src="./JETOUR X1_files/MndVXKJ.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,4)"><img src="./JETOUR X1_files/euADnmq.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,5)"><img src="./JETOUR X1_files/ymFtiXN.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,6)"><img src="./JETOUR X1_files/4E9bnQV.png"></div>
+      <div class="detail-card" onclick="openLightbox(&#39;tsagaan-salon&#39;,7)"><img src="./JETOUR X1_files/NM9vQjh.png"></div>
+      <div class="detail-card" style="border-radius:0 0 0 20px;" onclick="openLightbox(&#39;tsagaan-salon&#39;,8)"><img src="./JETOUR X1_files/X8SfC19.png"></div>
+      <div class="detail-card" style="border-radius:0 0 20px 0;" onclick="openLightbox(&#39;tsagaan-salon&#39;,9)"><img src="./JETOUR X1_files/SG4zt3T.png"></div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item active" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-tsagaan-salon" class="lightbox-overlay" onclick="handleLbClick(&#39;tsagaan-salon&#39;,event)">
+      <div id="lb-track-tsagaan-salon" class="lb-track"></div>
+      <div id="lb-dots-tsagaan-salon" class="lb-dots"></div>
+    </div>
+  </div>
+
+  <!-- ══ ҮЗҮҮЛЭЛТ ══ -->
+  <div id="page-uzuulelt" class="page">
+    <div class="header"><h1>Үзүүлэлт</h1></div>
+    <div class="uzuulelt-content">
+      <div class="uzuulelt-card" onclick="openUzuuleltLb()">
+        <img src="./JETOUR X1_files/eQi0yrJ.png">
+      </div>
+    </div>
+    <div class="footer">
+      <div class="nav-item" onclick="showPage(&#39;nuur&#39;)">НҮҮР</div>
+      <div class="nav-item" onclick="showPage(&#39;kuzov&#39;)">КУЗОВ</div>
+      <div class="nav-item" onclick="showPage(&#39;salon&#39;)">САЛОН</div>
+      <div class="nav-item active" onclick="showPage(&#39;uzuulelt&#39;)">ҮЗҮҮЛЭЛТ</div>
+    </div>
+    <div id="lightbox-uzuulelt" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:100;" onclick="closeUzuuleltLb(event)">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+        <img id="lb-uzuulelt-img" src="./JETOUR X1_files/eQi0yrJ.png" style="max-width:95%;max-height:90%;border-radius:20px;object-fit:contain;pointer-events:none;transition:transform 0.2s;transform-origin:center;">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function fitCanvas() {
+    const scale = Math.min(window.innerWidth/1080, window.innerHeight/1920);
+    document.documentElement.style.setProperty('--scale', scale);
+    document.body.style.height = (1920*scale)+'px';
+  }
+  window.addEventListener('resize', fitCanvas);
+  fitCanvas();
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-'+name).classList.add('active');
+  }
+
+  // Lightbox images
+  const lbData = {
+    black: [
+      'https://i.imgur.com/kYMAOMn.jpeg',
+      'https://i.imgur.com/fTqYWdT.jpeg',
+      'https://i.imgur.com/IqpcZkH.jpeg',
+      'https://i.imgur.com/Jgf89gb.jpeg',
+      'https://i.imgur.com/Zii0R37.jpeg'
+    ],
+    white: [
+      'https://i.imgur.com/vykhUxJ.jpeg',
+      'https://i.imgur.com/9g2fGGl.jpeg',
+      'https://i.imgur.com/FMBazfc.jpeg',
+      'https://i.imgur.com/t2ftGLv.jpeg',
+      'https://i.imgur.com/Ab8PcBP.jpeg'
+    ],
+    grey: [
+      'https://i.imgur.com/yjptbee.jpeg',
+      'https://i.imgur.com/qao6zOg.jpeg',
+      'https://i.imgur.com/sMIzxPm.jpeg',
+      'https://i.imgur.com/92u1OAP.jpeg',
+      'https://i.imgur.com/zgS9eyc.jpeg'
+    ],
+    red: [
+      'https://i.imgur.com/sfuHkRk.jpeg',
+      'https://i.imgur.com/QC4VizL.jpeg',
+      'https://i.imgur.com/jeCkBPW.jpeg',
+      'https://i.imgur.com/8JBsKRa.jpeg',
+      'https://i.imgur.com/4xkVdaI.jpeg'
+    ],
+    'har-salon': [
+      'https://i.imgur.com/vrw12lh.png',
+      'https://i.imgur.com/HhmYs92.png',
+      'https://i.imgur.com/tDOHAJ5.png',
+      'https://i.imgur.com/mvXt8WV.png',
+      'https://i.imgur.com/3OP4P11.png',
+      'https://i.imgur.com/6M9mRJ7.png',
+      'https://i.imgur.com/MOpDacY.png',
+      'https://i.imgur.com/UsmsFuD.png',
+      'https://i.imgur.com/DvlaJBk.png',
+      'https://i.imgur.com/xMZ7qoc.png'
+    ],
+    'tsagaan-salon': [
+      'https://i.imgur.com/OInI488.png',
+      'https://i.imgur.com/1kXsCSr.png',
+      'https://i.imgur.com/C2lFT6u.png',
+      'https://i.imgur.com/MndVXKJ.png',
+      'https://i.imgur.com/euADnmq.png',
+      'https://i.imgur.com/ymFtiXN.png',
+      'https://i.imgur.com/4E9bnQV.png',
+      'https://i.imgur.com/NM9vQjh.png',
+      'https://i.imgur.com/X8SfC19.png',
+      'https://i.imgur.com/SG4zt3T.png'
+    ]
+  };
+
+  let activeLb=null, cur=0, sx=0, delta=0, dragging=false, pZoom=1, pinching=false, pDist=0, lastTap=0;
+  const getDist=(t1,t2)=>Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
+  const getImg=()=>{const s=document.getElementById('lb-track-'+activeLb).children;return s[cur]?s[cur].querySelector('img'):null;};
+
+  function buildTrack(type){
+    const imgs=lbData[type];
+    const t=document.getElementById('lb-track-'+type);
+    t.innerHTML='';t.style.width=(imgs.length*100)+'%';
+    imgs.forEach(src=>{
+      const s=document.createElement('div');
+      s.style.cssText=`width:${100/imgs.length}%;height:100%;display:flex;align-items:center;justify-content:center;flex-shrink:0;`;
+      const i=document.createElement('img');i.src=src;
+      i.style.cssText='max-width:90%;max-height:80%;border-radius:20px;object-fit:contain;pointer-events:none;transition:transform 0.2s;transform-origin:center;';
+      s.appendChild(i);t.appendChild(s);
+    });
+  }
+
+  function goTo(idx,anim=true){
+    const imgs=lbData[activeLb];
+    cur=Math.max(0,Math.min(imgs.length-1,idx));
+    const t=document.getElementById('lb-track-'+activeLb);
+    t.style.transition=anim?'transform 0.35s cubic-bezier(0.4,0,0.2,1)':'none';
+    t.style.transform=`translateX(-${cur*(100/imgs.length)}%)`;
+    const dots=document.getElementById('lb-dots-'+activeLb);dots.innerHTML='';
+    imgs.forEach((_,i)=>{const d=document.createElement('div');d.style.cssText=`width:16px;height:16px;border-radius:50%;background:${i===cur?'#fff':'rgba(255,255,255,0.35)'};transition:background 0.2s;`;dots.appendChild(d);});
+  }
+
+  function openLightbox(type,idx){
+    activeLb=type; cur=idx; pZoom=1;
+    buildTrack(type);
+    document.getElementById('lightbox-'+type).style.display='block';
+    goTo(cur,false);
+  }
+
+  function handleLbClick(type,e){
+    if(e.target.tagName==='IMG')return;
+    if(Math.abs(delta)>10)return;
+    document.getElementById('lightbox-'+type).style.display='none';
+  }
+
+  // Touch & mouse events for both lightboxes
+  ['black','white','grey','red','har-salon','tsagaan-salon'].forEach(type=>{
+    const lb=document.getElementById('lightbox-'+type);
+    lb.addEventListener('touchstart',e=>{
+      if(e.touches.length===2){pinching=true;pDist=getDist(e.touches[0],e.touches[1]);}
+      else{pinching=false;sx=e.touches[0].clientX;delta=0;}
+    },{passive:true});
+    lb.addEventListener('touchmove',e=>{
+      if(e.touches.length===2&&pinching){
+        const r=getDist(e.touches[0],e.touches[1])/pDist;
+        const nz=Math.min(4,Math.max(1,pZoom*r));
+        const img=getImg();if(img)img.style.transform=`scale(${nz})`;
+      }else if(!pinching&&pZoom<=1){
+        delta=sx-e.touches[0].clientX;
+        const imgs=lbData[type];
+        const t=document.getElementById('lb-track-'+type);
+        t.style.transition='none';
+        t.style.transform=`translateX(calc(-${cur*(100/imgs.length)}% - ${delta/imgs.length}px))`;
+      }
+    },{passive:true});
+    lb.addEventListener('touchend',e=>{
+      if(pinching){
+        const img=getImg();
+        if(img){const m=img.style.transform.match(/scale\(([^)]+)\)/);if(m)pZoom=parseFloat(m[1]);if(pZoom<=1){pZoom=1;img.style.transform='scale(1)';}}
+        if(e.touches.length===0)pinching=false;
+      }else{
+        if(pZoom>1)return;
+        if(Math.abs(delta)>60){pZoom=1;goTo(delta>0?cur+1:cur-1);}else goTo(cur);
+      }
+      const now=Date.now();
+      if(now-lastTap<300){const img=getImg();if(img){pZoom=1;img.style.transform='scale(1)';}}
+      lastTap=now;
+    });
+    lb.addEventListener('mousedown',e=>{sx=e.clientX;delta=0;dragging=true;});
+    lb.addEventListener('mousemove',e=>{
+      if(!dragging)return;delta=sx-e.clientX;
+      const imgs=lbData[type];
+      const t=document.getElementById('lb-track-'+type);
+      t.style.transition='none';
+      t.style.transform=`translateX(calc(-${cur*(100/imgs.length)}% - ${delta/imgs.length}px))`;
+    });
+    lb.addEventListener('mouseup',e=>{
+      if(!dragging)return;dragging=false;
+      if(Math.abs(delta)>60)goTo(delta>0?cur+1:cur-1);else goTo(cur);
+    });
+  });
+
+  // Үзүүлэлт lightbox
+  let uzPinching=false, uzPDist=0, uzZoom=1, uzLastTap=0;
+  const uzGetImg=()=>document.getElementById('lb-uzuulelt-img');
+  const uzGetDist=(t1,t2)=>Math.hypot(t1.clientX-t2.clientX,t1.clientY-t2.clientY);
+
+  function openUzuuleltLb(){
+    uzZoom=1; uzGetImg().style.transform='scale(1)';
+    document.getElementById('lightbox-uzuulelt').style.display='block';
+  }
+  function closeUzuuleltLb(e){
+    if(e.target.tagName==='IMG') return;
+    document.getElementById('lightbox-uzuulelt').style.display='none';
+  }
+
+  const uzLb=document.getElementById('lightbox-uzuulelt');
+  uzLb.addEventListener('touchstart',e=>{
+    if(e.touches.length===2){uzPinching=true;uzPDist=uzGetDist(e.touches[0],e.touches[1]);}
+    else uzPinching=false;
+  },{passive:true});
+  uzLb.addEventListener('touchmove',e=>{
+    if(e.touches.length===2&&uzPinching){
+      const r=uzGetDist(e.touches[0],e.touches[1])/uzPDist;
+      const nz=Math.min(5,Math.max(1,uzZoom*r));
+      uzGetImg().style.transform=`scale(${nz})`;
+    }
+  },{passive:true});
+  uzLb.addEventListener('touchend',e=>{
+    if(uzPinching){
+      const m=uzGetImg().style.transform.match(/scale\(([^)]+)\)/);
+      if(m) uzZoom=parseFloat(m[1]);
+      if(uzZoom<=1){uzZoom=1;uzGetImg().style.transform='scale(1)';}
+      if(e.touches.length===0) uzPinching=false;
+    }
+    const now=Date.now();
+    if(now-uzLastTap<300){uzZoom=1;uzGetImg().style.transform='scale(1)';}
+    uzLastTap=now;
+  });
+</script>
+
+
+</body></html>
